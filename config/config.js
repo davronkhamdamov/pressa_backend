@@ -1,11 +1,10 @@
-import { Sequelize, DataType, UUIDV4 } from 'sequelize'
-
-
+import { Sequelize, DataTypes, UUIDV4 } from 'sequelize'
+import dotenv from 'dotenv'
+dotenv.config()
 const sequelize = new Sequelize(process.env.ELEPHANTSQL_URL, { logging: false })
 
 sequelize.authenticate()
     .then(() => console.log('connected'))
     .catch(e => console.log(e))
 
-
-export { sequelize, DataType, UUIDV4 }
+export { sequelize, DataTypes, UUIDV4 }
