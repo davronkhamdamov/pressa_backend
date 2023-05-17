@@ -24,7 +24,7 @@ class InternalServerError extends Error {
     }
 }
 
-export default {
+export {
     ValidationError,
     AuthorizationError,
     InternalServerError,
