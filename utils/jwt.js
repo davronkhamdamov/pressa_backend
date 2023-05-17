@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken'
 
-const sign = async (params) => {
+const sign = (params) => {
     return jwt.sign(params, process.env.JWT_SECRET)
 }
-const verify = async (token) => {
+const verify = (token) => {
     return jwt.verify(token, process.env.JWT_SECRET)
 }
 

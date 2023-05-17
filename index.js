@@ -4,11 +4,13 @@ import dotenv from 'dotenv'
 dotenv.config()
 import cors from 'cors'
 import auth from './middleware/auth.js';
+import admin from './router/admin.js';
 const PORT = process.env.PORT || 4001
 
 app.use(cors())
 app.use(express.json())
 app.use(auth)
+app.use('/admin', admin)
 
 app.get('/*', (req, res) => {
     res.send({ status: 400, message: 'Rout not found', method: req.method, url: req.url, error: true })

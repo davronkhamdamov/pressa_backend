@@ -39,7 +39,10 @@ const announcement = sequelize.define('announcement', {
     },
     link: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            isUrl: true
+        }
     },
     fullname: {
         type: DataTypes.STRING,
@@ -47,9 +50,9 @@ const announcement = sequelize.define('announcement', {
     },
     phone_number: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
-    subject_tex: {
+    subject_text: {
         type: DataTypes.STRING,
         allowNull: false
     }
