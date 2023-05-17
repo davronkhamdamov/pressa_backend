@@ -8,6 +8,18 @@ const PORT = process.env.PORT || 4001
 app.use(cors())
 app.use(express.json())
 
+app.get('/*', (req, res) => {
+    res.send({ status: 400, message: 'Rout not found', method: req.method, url: req.url, error: true })
+})
+app.post('/*', (req, res) => {
+    res.send({ status: 400, message: 'Rout not found', method: req.method, url: req.url, error: true })
+})
+app.put('/*', (req, res) => {
+    res.send({ status: 400, message: 'Rout not found', method: req.method, url: req.url, error: true })
+})
+app.delete('/*', (req, res) => {
+    res.send({ status: 400, message: 'Rout not found', method: req.method, url: req.url, error: true })
+})
 
 app.use((error, req, res, next) => {
 
