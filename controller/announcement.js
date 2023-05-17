@@ -1,6 +1,6 @@
 import announcement from '../database/announcement.js'
 import { InternalServerError, ValidationError } from '../utils/errors.js'
-
+announcement.sync({ force: false })
 const createAnnouncement = async (req, res, next) => {
     try {
         const newAnnouncement = await announcement.create(req.body)

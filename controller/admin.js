@@ -1,6 +1,9 @@
 import admin from '../database/admin.js'
 import { AuthorizationError } from '../utils/errors.js'
 import { sign } from '../utils/jwt.js'
+
+admin.sync({ force: false })
+
 const Login = async (req, res, next) => {
     try {
         const { username, password } = req.body
