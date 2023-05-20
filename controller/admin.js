@@ -8,7 +8,7 @@ const Login = async (req, res, next) => {
     try {
         const { username, password } = req.body
         const admins = await admin.findOne({ where: { username } })
-        if (!admins.length) {
+        if (!admins) {
             return next(new AuthorizationError(404, 'User Not Found!'))
         }
         if (admins.password !== password) {
