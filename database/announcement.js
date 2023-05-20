@@ -29,11 +29,11 @@ const announcement = sequelize.define('announcement', {
         type: DataTypes.BOOLEAN,
         allowNull: false
     },
-    yonalishni: {
+    yonalish: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    ichki_yonalishni: {
+    ichki_yonalish: {
         type: DataTypes.STRING,
         allowNull: false
     },
