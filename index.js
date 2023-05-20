@@ -29,11 +29,10 @@ app.delete('/*', (req, res) => {
 })
 
 app.use((error, req, res, next) => {
-
     if (error.name == 'ValidationError') {
         return res.status(error.status).json({
             status: error.status,
-            message: error.message.details[0].message,
+            message: error.message,
             errorName: error.name,
             error: true,
         })
@@ -47,8 +46,6 @@ app.use((error, req, res, next) => {
             error: true,
         })
     }
-
-    fs.appendFileSync('./log.txt', `${req.url}__${req.method}__${Date.now()}__${error.name}__${error.message}\n`)
 
     return res.status(error.status).json({
         status: error.status,
