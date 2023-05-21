@@ -22,5 +22,9 @@ const Login = async (req, res, next) => {
         return next(new AuthorizationError(400, error.message))
     }
 }
-
-export { Login }
+const adminCheck = (req, res) => {
+    res.send({
+        message: "successfully"
+    })
+}
+export { Login, adminCheck }
