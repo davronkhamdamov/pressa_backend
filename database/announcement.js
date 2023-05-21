@@ -55,6 +55,10 @@ const announcement = sequelize.define('announcement', {
     subject_text: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    isAccept: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true
     }
 })
 
