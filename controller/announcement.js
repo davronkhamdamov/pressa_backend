@@ -12,6 +12,7 @@ const createAnnouncement = async (req, res, next) => {
         return next(new ValidationError(400, error))
     }
 }
+
 const getAllAnnouncement = async (req, res, next) => {
     try {
         const announcements = await announcement.findAll()
@@ -20,4 +21,42 @@ const getAllAnnouncement = async (req, res, next) => {
         return next(new InternalServerError(500, error.message))
     }
 }
-export { createAnnouncement, getAllAnnouncement }
+
+const getAwaitAnnouncement = async (req, res, next) => {
+    try {
+        const announcements = await announcement.findAll(
+            { where: { isAccept: null } })
+        res.status(200).send(announcements)
+    } catch (error) {
+        return next(new InternalServerError(500, error.message))
+    }
+}
+
+const getAcceptAnnouncement = async (req, res, next) => {
+    try {
+        const announcements = await announcement.findAll({ where: { isAccept: true } })
+        res.status(200).send(announcements)
+    } catch (error) {
+        return next(new InternalServerError(500, error.message))
+    }
+}
+
+const getRejectAnnouncement = async (req, res, next) => {
+    try {
+        const announcements = await announcement.findAll({
+            where: {
+                isAccept: false
+            }
+        })
+        res.status(200).send(announcements)
+    } catch (error) {
+        return next(new InternalServerError(500, error.message))
+    }
+}
+export {
+    createAnnouncement,
+    getAllAnnouncement,
+    getAcceptAnnouncement,
+    getRejectAnnouncement,
+    getAwaitAnnouncement
+}
