@@ -53,10 +53,29 @@ const getRejectAnnouncement = async (req, res, next) => {
         return next(new InternalServerError(500, error.message))
     }
 }
+const updateAnnouncement = async (req, res, next) => {
+    try {
+        const foundAnnouncement = await announcement.findOne({ where: { id: req.body.id } })
+        if (!foundAnnouncement) {
+            return next(new InternalServerError(400, 'Announcement not found'))
+        }
+        await announcement.update(req.body, {
+            where: { id: req.body.id }
+        })
+        res.status(200).send(await announcement.findAll({
+            where: {
+                isAccept: !req.body.isAccept
+            }
+        }))
+    } catch (error) {
+        return next(new InternalServerError(500, error.message))
+    }
+}
 export {
     createAnnouncement,
     getAllAnnouncement,
     getAcceptAnnouncement,
     getRejectAnnouncement,
-    getAwaitAnnouncement
+    getAwaitAnnouncement,
+    updateAnnouncement
 }
