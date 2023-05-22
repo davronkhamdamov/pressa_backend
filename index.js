@@ -15,19 +15,6 @@ app.use(auth)
 app.use('/admin', admin)
 app.use('/announcement', announcement)
 
-app.get('/*', (req, res) => {
-    res.send({ status: 400, message: 'Rout not found', method: req.method, url: req.url, error: true })
-})
-app.post('/*', (req, res) => {
-    res.send({ status: 400, message: 'Rout not found', method: req.method, url: req.url, error: true })
-})
-app.put('/*', (req, res) => {
-    res.send({ status: 400, message: 'Rout not found', method: req.method, url: req.url, error: true })
-})
-app.delete('/*', (req, res) => {
-    res.send({ status: 400, message: 'Rout not found', method: req.method, url: req.url, error: true })
-})
-
 app.use((error, req, res, next) => {
     if (error.name == 'ValidationError') {
         return res.status(error.status).json({
@@ -53,6 +40,9 @@ app.use((error, req, res, next) => {
         errorName: error.name,
         error: true,
     })
+})
+app.use((req, res) => {
+    res.send({ status: 404, message: 'Rout not found', method: req.method, url: req.url, error: true })
 })
 
 
