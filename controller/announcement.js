@@ -2,6 +2,8 @@ import announcement from '../database/announcement.js'
 import { InternalServerError, ValidationError } from '../utils/errors.js'
 announcement.sync({ force: false })
 
+import { Op } from "sequelize";
+
 const createAnnouncement = async (req, res, next) => {
     try {
         await announcement.create(req.body)
@@ -57,7 +59,7 @@ const updateAnnouncement = async (req, res, next) => {
     try {
         const foundAnnouncement = await announcement.findOne({ where: { id: req.body.id } })
         if (!foundAnnouncement) {
-            return next(new InternalServerError(400, 'Announcement not found'))
+            return next(new ValidationError(400, 'Announcement not found'))
         }
         await announcement.update(req.body, {
             where: { id: req.body.id }
@@ -71,11 +73,34 @@ const updateAnnouncement = async (req, res, next) => {
         return next(new InternalServerError(500, error.message))
     }
 }
+const filterData = async (req, res, next) => {
+    // try {
+    const { yonalish, isOnline, date, fullname } = req.body
+
+    const data = await announcement.findAll({
+        where: {
+            yonalish: {
+                [Op.in]: yonalish.map(e => e.title),
+            },
+            fullname: {
+                [Op.in]: fullname.map(e => e.title),
+            },
+            isOnline: isOnline === "Online" ? true : false,
+            date: date
+        },
+    })
+    res.send(data)
+    // } catch (error) {
+    //     return next(new InternalServerError(500, error.message))
+    // }
+}
+
 export {
     createAnnouncement,
     getAllAnnouncement,
     getAcceptAnnouncement,
     getRejectAnnouncement,
     getAwaitAnnouncement,
-    updateAnnouncement
+    updateAnnouncement,
+    filterData
 }
