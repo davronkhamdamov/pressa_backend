@@ -3,12 +3,12 @@ import { verify } from '../utils/jwt.js'
 
 const auth = async (req, res, next) => {
     try {
-        if ('/announcement/await', '/admin' === (req.url)) {
-            const token = req.headers.token
+        if ('/admin' === (req.url)) {
+            const { token } = req.headers
             if (!token) {
                 return next(new AuthorizationError(400, 'Token is required'))
             }
-            const verifedToken = verify(token)
+            const verifedToken = await verify(token)
             if (verifedToken.agent !== req.headers['user-agent']) {
                 return next(new AuthorizationError(400, 'Device wrong!'))
             }
@@ -17,7 +17,7 @@ const auth = async (req, res, next) => {
         }
         next()
     } catch (error) {
-        next(new AuthorizationError(400, error.message))
+        return next(new AuthorizationError(400, error))
     }
 }
 export default auth
