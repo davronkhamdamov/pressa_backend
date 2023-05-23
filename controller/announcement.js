@@ -74,25 +74,25 @@ const updateAnnouncement = async (req, res, next) => {
     }
 }
 const filterData = async (req, res, next) => {
-    // try {
-    const { yonalish, isOnline, date, fullname } = req.body
+    try {
+        const { yonalish, isOnline, date, fullname } = req.body
 
-    const data = await announcement.findAll({
-        where: {
-            yonalish: {
-                [Op.in]: yonalish.map(e => e.title),
+        const data = await announcement.findAll({
+            where: {
+                yonalish: {
+                    [Op.in]: yonalish.map(e => e.title),
+                },
+                fullname: {
+                    [Op.in]: fullname.map(e => e.title),
+                },
+                isOnline: isOnline === "Online" ? true : false,
+                date: date
             },
-            fullname: {
-                [Op.in]: fullname.map(e => e.title),
-            },
-            isOnline: isOnline === "Online" ? true : false,
-            date: date
-        },
-    })
-    res.send(data)
-    // } catch (error) {
-    //     return next(new InternalServerError(500, error.message))
-    // }
+        })
+        res.send(data)
+    } catch (error) {
+        return next(new InternalServerError(500, error.message))
+    }
 }
 
 export {
