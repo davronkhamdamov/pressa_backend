@@ -12,8 +12,9 @@ const auth = async (req, res, next) => {
             if (verifedToken.agent !== req.headers['user-agent']) {
                 return next(new AuthorizationError(400, 'Device wrong!'))
             }
-            req.user_id = verifedToken.id
-            next()
+            return res.send({
+                message: "Successfully checked"
+            })
         }
         next()
     } catch (error) {
