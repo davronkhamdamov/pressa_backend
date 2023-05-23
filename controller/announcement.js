@@ -55,6 +55,9 @@ const updateAnnouncement = async (req, res, next) => {
         await announcement.update(req.body, {
             where: { id: req.body.id }
         })
+        if (foundAnnouncement.isAccept === null) {
+            await announcement.findAll({ where: { isAccept: null } })
+        }
         res.status(200).send(await announcement.findAll({
             where: {
                 isAccept: !req.body.isAccept
