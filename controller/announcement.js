@@ -77,7 +77,7 @@ const filterData = async (req, res, next) => {
                     [Op.in]: yonalish.map(e => e.title),
                 },
                 fullname: {
-                    [Op.in]: fullname.map(e => e.title),
+                    [Op.in]: fullname.map(e => e.fullname),
                 },
                 isOnline: isOnline === "Online" ? true : false,
                 date: date
