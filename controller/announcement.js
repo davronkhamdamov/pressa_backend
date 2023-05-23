@@ -15,15 +15,6 @@ const createAnnouncement = async (req, res, next) => {
     }
 }
 
-const getAllAnnouncement = async (req, res, next) => {
-    try {
-        const announcements = await announcement.findAll()
-        res.status(200).send(announcements)
-    } catch (error) {
-        return next(new InternalServerError(500, error.message))
-    }
-}
-
 const getAwaitAnnouncement = async (req, res, next) => {
     try {
         const announcements = await announcement.findAll(
@@ -97,7 +88,6 @@ const filterData = async (req, res, next) => {
 
 export {
     createAnnouncement,
-    getAllAnnouncement,
     getAcceptAnnouncement,
     getRejectAnnouncement,
     getAwaitAnnouncement,

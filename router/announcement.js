@@ -1,7 +1,6 @@
 import { Router } from 'express'
 import {
     createAnnouncement,
-    getAllAnnouncement,
     getAcceptAnnouncement,
     getAwaitAnnouncement,
     getRejectAnnouncement,
@@ -10,7 +9,6 @@ import {
 } from '../controller/announcement.js'
 const rout = Router()
 
-rout.get('/list', getAllAnnouncement)
 rout.post('/create', createAnnouncement)
 rout.get('/accept', getAcceptAnnouncement)
 rout.get('/reject', getRejectAnnouncement)
